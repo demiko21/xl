@@ -133,3 +133,93 @@ db.restaurants.find({
    {cuisine: {$ne: "American"}}
  ]
 })
+
+1.Describe what is Callback in JS? (2)
+2.Describe event loop in NodeJS? (4)
+3.Write the function which counts how many times each character is presented in the given text? (4)
+4.What is the output of the following code? (4)
+console.log("first");
+setTimeout(() => {
+    console.log("second");
+}, 0);
+console.log("third");
+5.What will the code below output to the console and why? (4)
+for (var i = 0; i < 5; i++) {
+		setTimeout(function() { console.log(i); }, i * 1000 );
+}
+6.Write a JavaScript function that fetches data from an API and retries the request a specified number of times if it fails (4)
+7.Structure of 'restaurants' collection: (4)
+
+{
+  "address": {
+     "building": "1007",
+     "coord": [ -73.856077, 40.848447 ],
+     "street": "Morris Park Ave",
+     "zipcode": "10462"
+  },
+  "borough": "Bronx",
+  "cuisine": "Bakery",
+  "grades": [
+     { "date": { "$date": 1393804800000 }, "grade": "A", "score": 2 },
+     { "date": { "$date": 1378857600000 }, "grade": "A", "score": 6 },
+     { "date": { "$date": 1358985600000 }, "grade": "A", "score": 10 },
+     { "date": { "$date": 1322006400000 }, "grade": "A", "score": 9 },
+     { "date": { "$date": 1299715200000 }, "grade": "B", "score": 14 }
+  ],
+  "name": "Morris Park Bake Shop",
+  "restaurant_id": "30075445"
+}
+
+Write a MongoDB query to find the restaurants which do not prepare any cuisine of 'American' and achieved a grade point 'A' not belongs to the borough Brooklyn. The document must be displayed according to the cuisine in descending order.
+8.Write a MongoDB query to find the restaurants that have at least one grade with a score of less than 5 and that are located in the borough of Manhattan or Brooklyn, and their cuisine is not American or Chinese. (4)
+9.Add to the given(https://github.com/anri-1151/nodejs-express-api-ibsu-class-2024) NodeJS Rest api project Taxi License model. Taxi License data consists from fields: firstName, lastName, pid, licenseActivationDate and service check list, which consists from service name, date and result, if this service was passed or not. Add Rest method for to retrieve all records, one record by id, add new record and update taxi license information methods. Add search method, which returns drivers with pagination and can filter drivers list with one search text which will be matched with firstName,lastName or pid fields (10)
+
+1.A callback is a function passed as an argument to another function. It allows code to be executed after a task completes. This is especially useful for asynchronous operations like file reading, API requests, and timers.
+2.The event loop is a core part of Node.js’s asynchronous architecture. It allows non-blocking I/O operations — such as reading files or handling network requests — by delegating tasks to the system and resuming execution when results are available.
+3.
+function countCharacters(text) {
+  const result = {};
+  for (let char of text) {
+    char = char.toLowerCase(); // optional: make it case-insensitive
+    if (result[char]) {
+      result[char]++;
+    } else {
+      result[char] = 1;
+   }
+  }
+  return result;
+ }
+  console.log(countCharacters("Hello World!"));
+
+4.This demonstrates how the event loop and asynchronous callbacks like setTimeout behave in JavaScript — even with 0 milliseconds delay
+5.The loop uses var, which is function-scoped.
+When setTimeout runs, the i in the callback refers to the same i from the outer scope.
+By the time the setTimeout callbacks execute, the loop has finished — so i === 5
+6.
+function fetchWithRetry(url, retries = 3) {
+  return fetch(url)
+    .then(res => {
+      if (!res.ok) throw new Error("Failed to fetch");
+      return res.json();
+    })
+    .catch(err => {
+      if (retries > 0) {
+        console.warn(`Retrying... (${retries})`);
+        return fetchWithRetry(url, retries - 1);
+      } else {
+        throw err;
+      }
+    });
+}
+7.
+db.restaurants.find({
+  cuisine: { $ne: "American" },
+  "grades.grade": "A",
+  borough: { $ne: "Brooklyn" }
+}).sort({ cuisine: -1 });
+8.
+db.restaurants.find({
+  "grades.score": { $lt: 5 },
+  borough: { $in: ["Manhattan", "Brooklyn"] },
+  cuisine: { $nin: ["American", "Chinese"] }
+});
