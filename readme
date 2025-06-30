@@ -1,225 +1,26 @@
-1.Describe what is Promise in JS? (4)
-2.Describe closure event in JS? (2)
-3.Write the function which checks If two strings are anagrams? (An anagram is a literary device where the letters that make up a word, phrase, or name are rearranged to create new ones.) (4)
-4.What is the output of the following code? (4)
-const b = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+1) The computer room – or data hall – houses the racks and cabinets that hold the computing and storage modules.
 
-for (let i = 0; i < 10; i++) {
-  setTimeout(() => console.log(b[i]), 1000);
-}
+computer room or data hall are the most common terms.
+2) The main distribution area – or MDA – is the hub of the cabling system and includes the core switches – routers.
 
-for (var i = 0; i < 10; i++) {
-  setTimeout(() => console.log(b[i]), 1000);
-}
-5.What will the code below output to the console and why? (4)
-    var myObject = {
-        foo: "bar",
-        func: function() {
-            var self = this;
-            console.log("outer func:  this.foo = " + this.foo);
-            console.log("outer func:  self.foo = " + self.foo);
-            (function() {
-                console.log("inner func:  this.foo = " + this.foo);
-                console.log("inner func:  self.foo = " + self.foo);
-             }());
-           }
-     };
-myObject.func();
-6.Write a JavaScript function that takes an array of URLs and downloads the contents of each URL in parallel using Promises. (4)
-7.Structure of 'restaurants' collection: (4)
+main distribution area (MDA)
+core switches and routers are usually located here.
+3) What goes inside a rack (enlist the most important components):
 
-{
-  "address": {
-     "building": "1007",
-     "coord": [ -73.856077, 40.848447 ],
-     "street": "Morris Park Ave",
-     "zipcode": "10462"
-  },
-  "borough": "Bronx",
-  "cuisine": "Bakery",
-  "grades": [
-     { "date": { "$date": 1393804800000 }, "grade": "A", "score": 2 },
-     { "date": { "$date": 1378857600000 }, "grade": "A", "score": 6 },
-     { "date": { "$date": 1358985600000 }, "grade": "A", "score": 10 },
-     { "date": { "$date": 1322006400000 }, "grade": "A", "score": 9 },
-     { "date": { "$date": 1299715200000 }, "grade": "B", "score": 14 }
-  ],
-  "name": "Morris Park Bake Shop",
-  "restaurant_id": "30075445"
-}
+Servers (blades or rackmount)
+Storage modules (disk arrays, NAS, SAN)
+Network switches
+Patch panels
+Power distribution units (PDUs)
+Cooling fans or modules
+4) Blade server is a single circuit board populated with components such as processor, memory, and network connection boards. They use less space and usually are placed in one rack unit.
 
-Write a MongoDB query to find the restaurants that achieved a score, more than 80 but less than 100.
+Blade server
+less space (or “high density” or “compact design”)
+5) How many inches of height are in 1U rack 1.75 : in 2U = 3.5
 
-8.Write a MongoDB query to find the restaurants that have at least one grade with a score of less than 5 and that are located in the borough of Manhattan or Brooklyn, and their cuisine is not American. (4)
-9.Add to the given(https://github.com/anri-1151/nodejs-express-api-ibsu-class-2024) NodeJS Rest api project Employee model. Employee data consists from fields: firstName, lastName, pid, dateOfBirth, position and salary. Add Rest method for to retrieve all records, one record by id, add new employee record and update employee information methods. Add search method, which returns employees with pagination and can filter students list with one search text which will be matched with firstName,lastName or pid fields. (10)	
+1U = 1.75 inches
+2U = 3.5 inches (1.75 x 2)
+6) The network operations center is the location where control of all data center networking, server, and storage modules
 
-Answers
-1.In JavaScript the Promise object represents the eventual completion or the failure of an asynchronous operation and its resulting value. In JS we use promises to work with asynchronous operations like sending a request to an endpoint. It provides methods then(), catch(), and finally() are used to associate further action with a promise that becomes settled.
-2.In JavaScript a closure is the combination of a function bundled together with references to its surrounding state, it’s lexical environment. In other words, a closure gives you access to an outer function's scope from an inner function. In JavaScript, closures are created every time a function is created, at function creation time.
-
-3. Code:
-str1 = 'anagram'
-str2 = 'naagram'
-
-function areAnagrams(word1, word2) {
-    array1 = [...word1].sort()
-    array2 = [...word2].sort()
-    return (array1.length === array2.length) && array1.every((value, index) => value === array2[index])
-}
-
-console.log(areAnagrams(str1, str2))
-4. Output:
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-undefined
-undefined
-undefined
-undefined
-undefined
-undefined
-undefined
-undefined
-undefined
-undefined
-This code showcases the difference between the block scope of let and function scope (in this case global) of var. Since let has block scope the console.log outputs the array values as expected as the index that is passed into the set timeout is of the correct value of i. But because of vars function scope by the time the log runs the I has the value of 10 which is out of range of the arrays indexes, which is the reason why the array b[i] returns undefined for every iteration.
-
-5. Output:
-outer func:  this.foo = bar
-outer func:  self.foo = bar
-inner func:  this.foo = undefined
-inner func:  self.foo = bar
-Why:
-This code outputs the first two lines because of the fact that the first "func: function() " function's
-this keyword points to the "myObject"'s this, so they have access to the foo variable. But the anonymous function's this keyword doesn't inherit the this keyword from my object and is instead pointing towards the wondow object, which doesn't have the foo keyword, so this.foo prints undefined. On the other hand self.foo prints "bar" because it sees the self variable from its parent scope.
-6. Code
-const urls = [
-    'https://swapi.dev/api/people/1/',
-    'https://swapi.dev/api/people/2/',
-    'https://swapi.dev/api/people/3/',
-];
-
-function fetchInParallel(urls) {
-    return Promise.all(urls.map(url => fetch(url).then(response => {
-        if (!response.ok) {
-            throw new Error(`Failed to fetch ${url}: ${response.statusText}`);
-        }
-        return response.json();
-    })));
-}
-
-fetchInParallel(urls)
-    .then(data => console.log(data))
-    .catch(error => console.error('Error fetching data:', error));
-
-7. Query
-db.restaurants.find({
-	grades: {
-	 $elemMatch: {score: {$gt: 80, $lt: 100}}	
-	}
-})
-8. Query:
-db.restaurants.find({
- $and: [
-   {borough: {$in: ["Manhattan", "Brooklyn"]}},
-   {"grades.score": {$lt: 5}},
-   {cuisine: {$ne: "American"}}
- ]
-})
-
-1.Describe what is Callback in JS? (2)
-2.Describe event loop in NodeJS? (4)
-3.Write the function which counts how many times each character is presented in the given text? (4)
-4.What is the output of the following code? (4)
-console.log("first");
-setTimeout(() => {
-    console.log("second");
-}, 0);
-console.log("third");
-5.What will the code below output to the console and why? (4)
-for (var i = 0; i < 5; i++) {
-		setTimeout(function() { console.log(i); }, i * 1000 );
-}
-6.Write a JavaScript function that fetches data from an API and retries the request a specified number of times if it fails (4)
-7.Structure of 'restaurants' collection: (4)
-
-{
-  "address": {
-     "building": "1007",
-     "coord": [ -73.856077, 40.848447 ],
-     "street": "Morris Park Ave",
-     "zipcode": "10462"
-  },
-  "borough": "Bronx",
-  "cuisine": "Bakery",
-  "grades": [
-     { "date": { "$date": 1393804800000 }, "grade": "A", "score": 2 },
-     { "date": { "$date": 1378857600000 }, "grade": "A", "score": 6 },
-     { "date": { "$date": 1358985600000 }, "grade": "A", "score": 10 },
-     { "date": { "$date": 1322006400000 }, "grade": "A", "score": 9 },
-     { "date": { "$date": 1299715200000 }, "grade": "B", "score": 14 }
-  ],
-  "name": "Morris Park Bake Shop",
-  "restaurant_id": "30075445"
-}
-
-Write a MongoDB query to find the restaurants which do not prepare any cuisine of 'American' and achieved a grade point 'A' not belongs to the borough Brooklyn. The document must be displayed according to the cuisine in descending order.
-8.Write a MongoDB query to find the restaurants that have at least one grade with a score of less than 5 and that are located in the borough of Manhattan or Brooklyn, and their cuisine is not American or Chinese. (4)
-9.Add to the given(https://github.com/anri-1151/nodejs-express-api-ibsu-class-2024) NodeJS Rest api project Taxi License model. Taxi License data consists from fields: firstName, lastName, pid, licenseActivationDate and service check list, which consists from service name, date and result, if this service was passed or not. Add Rest method for to retrieve all records, one record by id, add new record and update taxi license information methods. Add search method, which returns drivers with pagination and can filter drivers list with one search text which will be matched with firstName,lastName or pid fields (10)
-
-1.A callback is a function passed as an argument to another function. It allows code to be executed after a task completes. This is especially useful for asynchronous operations like file reading, API requests, and timers.
-2.The event loop is a core part of Node.js’s asynchronous architecture. It allows non-blocking I/O operations — such as reading files or handling network requests — by delegating tasks to the system and resuming execution when results are available.
-3.
-function countCharacters(text) {
-  const result = {};
-  for (let char of text) {
-    char = char.toLowerCase(); // optional: make it case-insensitive
-    if (result[char]) {
-      result[char]++;
-    } else {
-      result[char] = 1;
-   }
-  }
-  return result;
- }
-  console.log(countCharacters("Hello World!"));
-
-4.This demonstrates how the event loop and asynchronous callbacks like setTimeout behave in JavaScript — even with 0 milliseconds delay
-5.The loop uses var, which is function-scoped.
-When setTimeout runs, the i in the callback refers to the same i from the outer scope.
-By the time the setTimeout callbacks execute, the loop has finished — so i === 5
-6.
-function fetchWithRetry(url, retries = 3) {
-  return fetch(url)
-    .then(res => {
-      if (!res.ok) throw new Error("Failed to fetch");
-      return res.json();
-    })
-    .catch(err => {
-      if (retries > 0) {
-        console.warn(`Retrying... (${retries})`);
-        return fetchWithRetry(url, retries - 1);
-      } else {
-        throw err;
-      }
-    });
-}
-7.
-db.restaurants.find({
-  cuisine: { $ne: "American" },
-  "grades.grade": "A",
-  borough: { $ne: "Brooklyn" }
-}).sort({ cuisine: -1 });
-8.
-db.restaurants.find({
-  "grades.score": { $lt: 5 },
-  borough: { $in: ["Manhattan", "Brooklyn"] },
-  cuisine: { $nin: ["American", "Chinese"] }
-});
+network operations center (NOC)
