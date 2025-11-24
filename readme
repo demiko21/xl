@@ -1,26 +1,17 @@
-1) The computer room – or data hall – houses the racks and cabinets that hold the computing and storage modules.
-
-computer room or data hall are the most common terms.
-2) The main distribution area – or MDA – is the hub of the cabling system and includes the core switches – routers.
-
-main distribution area (MDA)
-core switches and routers are usually located here.
-3) What goes inside a rack (enlist the most important components):
-
-Servers (blades or rackmount)
-Storage modules (disk arrays, NAS, SAN)
-Network switches
-Patch panels
-Power distribution units (PDUs)
-Cooling fans or modules
-4) Blade server is a single circuit board populated with components such as processor, memory, and network connection boards. They use less space and usually are placed in one rack unit.
-
-Blade server
-less space (or “high density” or “compact design”)
-5) How many inches of height are in 1U rack 1.75 : in 2U = 3.5
-
-1U = 1.75 inches
-2U = 3.5 inches (1.75 x 2)
-6) The network operations center is the location where control of all data center networking, server, and storage modules
-
-network operations center (NOC)
+1. How code runs and how stack manages variables
+When a function is called, a stack frame is created.
+This frame stores local variables, return address, and temporary values.
+When the function finishes, its frame is removed (popped), and all its local variables disappear automatically.
+The stack is fast and works in LIFO order.
+2. What variables are stored in the heap and why
+Heap stores dynamic objects created at runtime (e.g., Python lists, dicts, class objects).
+They go to the heap because their size or lifetime is not known in advance.
+Heap objects stay alive until no references point to them (GC cleans them).
+4. Eden space 
+Eden is part of the young generation in a garbage collector.
+New objects are created in Eden.
+Most die quickly, so Eden is cleaned often using fast “minor GC.”
+5. Mark-and-sweep algorithm 
+Mark: starting from root references, mark all reachable objects.
+Sweep: go through memory and delete all unmarked objects.
+This frees memory used by unreachable objects
