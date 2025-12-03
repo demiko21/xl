@@ -1,39 +1,202 @@
-1. How code runs and how stack manages variables
-When a function is called, a stack frame is created.
-This frame stores local variables, return address, and temporary values.
-When the function finishes, its frame is removed (popped), and all its local variables disappear automatically.
-The stack is fast and works in LIFO order.
-2. What variables are stored in the heap and why
-Heap stores dynamic objects created at runtime (e.g., Python lists, dicts, class objects).
-They go to the heap because their size or lifetime is not known in advance.
-Heap objects stay alive until no references point to them (GC cleans them).
-4. Eden space 
-Eden is part of the young generation in a garbage collector.
-New objects are created in Eden.
-Most die quickly, so Eden is cleaned often using fast “minor GC.”
-5. Mark-and-sweep algorithm 
-Mark: starting from root references, mark all reachable objects.
-Sweep: go through memory and delete all unmarked objects.
-This frees memory used by unreachable objects
-6.
-# simple parser + executor
-def run(code):
-    env = {}
-    lines = [l.strip() for l in code.split(";") if l.strip()]
-    for line in lines:
-        if line.startswith("print"):
-            var = line.split()[1]
-            print(env[var])
-        else:
-            name, val = line.split("=")
-            env[name.strip()] = int(val.strip())
+1. Genus / species — identify which is which, then name two other species of the same genus (5 pts)
 
-# example program
-prog = """
-x = 10;
-y = 20;
-print x;
-print y;
-"""
-run(prog)
+a) RABBIT, ANIMAL
 
+Genus: Animal
+
+Species: Rabbit
+
+Two other species (same genus): Dog, Horse
+
+b) LION, PREDATOR
+
+Genus: Predator (a predator is a broader category)
+
+Species: Lion
+
+Two other species (same genus/category “predator”): Tiger, Wolf
+
+c) BASEBALL, SPORT
+
+Genus: Sport
+
+Species: Baseball
+
+Two other species (same genus): Soccer, Basketball
+
+d) GARMENT, COAT
+
+Genus: Garment
+
+Species: Coat
+
+Two other species (same genus): Shirt, Pants
+
+e) COW, MAMMAL
+
+Genus: Mammal
+
+Species: Cow
+
+Two other species (same genus): Human, Dog
+
+2. Arrange each list in order of increasing abstractness (from most concrete → most abstract) (5 pts)
+
+a) Items: Performer, John Lennon, Singer
+
+Order: John Lennon → Singer → Performer
+
+b) Items: Durable goods, manufactured objects, refrigerator, appliance
+
+Order: Refrigerator → Appliance → Durable goods → Manufactured objects
+
+c) Items: Google, corporation, multinational company, institution
+
+Order: Google → Multinational company → Corporation → Institution
+
+d) Items: Telephone, iPhone, mobile telephone, communication device
+
+Order: iPhone → Mobile telephone → Telephone → Communication device
+
+e) Items: U.S. president, Thomas Jefferson, national leader
+
+Order: Thomas Jefferson → U.S. president → National leader
+
+3. For each proposed definition — identify genus and differentia (5 pts)
+
+a) “Snow is the precipitation consisting of flakes or clumps of ice crystals.”
+
+Genus: Precipitation
+
+Differentia: Consisting of flakes or clumps of ice crystals
+
+b) “Numbers are mathematical objects used to count, measure and label.”
+
+Genus: Mathematical objects
+
+Differentia: Used to count, measure, and label
+
+c) “Rational number is a number in the form of p/q where p and q are integers and q ≠ 0.”
+
+Genus: Number
+
+Differentia: Having the form p/q with p and q integers and q ≠ 0
+
+d) “A pen is a hand-held writing implement that uses ink.”
+
+Genus: Hand-held writing implement
+
+Differentia: Uses ink
+
+e) “A tree is a plant with thick roots.”
+
+Genus: Plant
+
+Differentia: Having thick roots
+
+(Nota bene: some differentia could be tightened — e.g. “thick roots” is somewhat vague — but this answers the requested identification.)
+
+4. For each paragraph: does it contain an argument? If yes — state premises and conclusion.
+
+a) “We parked at the trailhead and began our hike up Mt. Washington, walking through a dense forest. After 2 hours we reached the halfway point and stopped to eat lunch.”
+
+Contains an argument? No.
+
+This is a narrative / report of events, not an argument (no premises offered to support a claim).
+
+b) “Cable television can provide the viewer with more channels than broadcast television, and it usually delivers a higher quality picture. For these reasons, the number of cable subscribers will probably continue to grow rapidly.”
+
+Contains an argument? Yes.
+
+Premises: (1) Cable provides more channels than broadcast TV. (2) Cable usually delivers a higher-quality picture.
+
+Conclusion: Therefore, the number of cable subscribers will probably continue to grow rapidly.
+
+c) “It’s important to have sturdy boots for this hike, because the trail is very rocky.”
+
+Contains an argument? Yes.
+
+Premise: The trail is very rocky.
+
+Conclusion: Therefore, it’s important to have sturdy boots for this hike.
+
+d) “Since these peaks are above the tree line, hikers are totally exposed to the weather.”
+
+Contains an argument? Yes (a simple inferential claim / explanatory inference).
+
+Premise: These peaks are above the tree line.
+
+Conclusion: Hikers are totally exposed to the weather.
+
+(This can also be read as an explanation rather than an argument, but it functions as inference from premise → conclusion.)
+
+e) “It is rarely economical for two companies to lay cables in the same area and compete directly. This suggests that cable television is a natural monopoly, which should be regulated by the government.”
+
+Contains an argument? Yes.
+
+Premise: It is rarely economical for two companies to lay cables in the same area and compete directly.
+
+Intermediate inference / sub-conclusion: Cable television is a natural monopoly.
+
+Final conclusion: Therefore, cable television should be regulated by the government.
+
+5. Formal reasoning proofs (show steps)
+Problem A
+
+Premises (informal):
+
+It is not sunny this afternoon. — translate: ¬S
+
+We will go swimming only if it is sunny. — translate: Swim → S
+
+If we do not go swimming, then we will take a canoe trip. — translate: ¬Swim → Canoe
+
+If we take a canoe trip, then we will be home by sunset. — translate: Canoe → Home
+
+Goal: conclude Home (We will be home by sunset).
+
+Proof (propositional steps):
+
+¬S. (Premise)
+
+Swim → S. (Premise: “only if” means Swim implies S)
+
+From (1) and (2): by modus tollens we get ¬Swim. (If Swim → S and S is false, then Swim is false.)
+
+¬Swim → Canoe. (Premise)
+
+From (3) and (4): by modus ponens we get Canoe.
+
+Canoe → Home. (Premise)
+
+From (5) and (6): by modus ponens we get Home. ✔
+
+So the premises logically entail “We will be home by sunset.”
+
+Problem B
+
+Premises:
+
+If you send me an e-mail message, then I will finish writing the program. — E → F
+
+If you do not send me an e-mail message, then I will go to sleep early. — ¬E → Sleep
+
+If I go to sleep early, then I will wake up feeling refreshed. — Sleep → R
+
+Goal: show If I do not finish writing the program, then I will wake up feeling refreshed. — i.e. ¬F → R
+
+Proof:
+
+E → F. (Premise)
+
+From (1) take contrapositive: ¬F → ¬E. (Contrapositive of E → F)
+
+¬E → Sleep. (Premise)
+
+From (2) and (3) by hypothetical syllogism (chain): ¬F → Sleep. (If ¬F then ¬E, if ¬E then Sleep; hence ¬F → Sleep.)
+
+Sleep → R. (Premise)
+
+From (4) and (5) by hypothetical syllogism: ¬F → R. ✔
+
+Thus the premises entail: if I do not finish the program, then I will wake up feeling refreshed.
