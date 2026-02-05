@@ -1,41 +1,15 @@
-1)If c | a and c | b, show that c | (a + b).
-a=c⋅k , b=c⋅m, a+b=c(k+m)
-2. If c | a and c | b, show that c | (a·b)
-a=c⋅k,b=c⋅m , ab=(ck)(cm)=c(ckm)
-If a | b and c | d, show (a·c) | (b·d).
-b=a⋅x,d=c⋅y,bd=(ax)(cy)=(ac)(xy),
-If a | b and b ≠ 0, show |a| ≤ |b|.
-b=a⋅k,
-If k = ±1, |a| = |b|
-If |k| ≥ 2, |b| is bigger than |a|.
-So |a| can never be bigger than |b|.
-2)For any integers a, b (b>0), show there exists unique q such that
-0≤a−qb<b,
-a=bq+r,0≤r<b, r=a−qb
-r is always unique.
-Division always gives a unique quotient q and remainder r.
-b)If gcd(a,b)=g, prove that a/g and b/g are relatively prime.
-Easy explanation:
-If g = gcd(a,b), then g is the biggest number that divides both a and b.
-Divide both by g:
-a/g, b/g
-There is no number >1 that divides them both, because if there was,
-then a and b would have a bigger gcd than g → impossible.
-3)3k,3k+1,3k+2
-(3k)2=9k2=3(3k2) → form 3m
-(3k+1)2=9k2+6k+1=3(3k2+2k)+1 → form 3m+1
-(3k+2)^2=9k2+12k+4=3(3k2+4k+1)+1
-b)3k,3k+1,3k+2
-(3k)3=27k3=9(3k3)→ 9k
-(3k+1)3=27k3+27k2+9k+1=9m+1 → 9k+1
-(3k+2)3=27k3+54k2+36k+8=9m+8 → 9k+8
-4)Show irem(a·m + b, m) = irem(b, m)
-Why (easy): a·m is a multiple of m so it leaves remainder 0. Adding b doesn’t change the remainder.
-Answer: irem(a·m + b, m) = irem(b,m).
-Show irem(a + b + c, m) = irem(a + irem(b+c,m), m)
-Why (easy): First reduce b+c to its remainder r = irem(b+c,m). Then b+c = m·t + r. So a+b+c = a + m·t + r and remainder = remainder of a+r.
-Answer: irem(a+b+c,m) = irem(a + irem(b+c,m), m).
-Show irem(a+b, m) = irem( irem(a,m) + irem(b,m), m)
-Why (easy): Replace a and b by their remainders ra and rb. Then a+b = m·k + (ra+rb), so final remainder is remainder of ra+rb.
-Answer: irem(a+b,m) = irem(irem(a,m)+irem(b,m), m).
-5)x=6+7t,y=11−6t, t∈Z​
+Question 1 – Concept Explanation a) Checks: Syntax analysis checks the grammatical structure (e.g., matching braces). Semantic analysis checks the logical meaning (e.g., type consistency). b) Errors: Syntax detects a missing semicolon; Semantic detects a type mismatch (e.g., adding a string to an integer). c) Why separate: Parsing uses Context-Free Grammars which cannot track context-sensitive info, such as whether a variable was declared before use.
+
+Question 2 – Error Detection & Responsibility a) Missing semicolon: Syntax Analysis; it violates the grammar rules of the language structure. b) Use of an undeclared variable: Semantic Analysis; requires checking the symbol table for existence. c) Type mismatch in assignment: Semantic Analysis; requires comparing the data types of the source and destination. d) Infinite loop: Generally not detected; this is a logical issue that is often undecidable (Halting Problem). e) Division by zero (constants): Semantic Analysis/Optimization; the compiler evaluates constant expressions and flags illegal math.
+
+Question 3 – Design Question a) Use a Stack of Hash Tables for the symbol table. b) Push a new hash table onto the stack when entering a new function or block (nested scope). c) Resolve names by searching from the top (inner) table downward to the bottom (global) table. d) Pop the top table when exiting a block to automatically handle scope expiration.
+
+Question 4 – Comparison Question a) Lexical Scoping: Resolution is based on where the code is written (static structure). Binding is decided at compile time. Advantage: Code is predictable and readable. Disadvantage: Less flexible for runtime environment changes. b) Dynamic Scoping: Resolution is based on the calling sequence (the stack). Binding is decided at runtime. Advantage: Easy to pass parameters implicitly. Disadvantage: Very difficult to debug and trace.
+
+Question 5 – Optimization Safety a) Meaning: Transformations must be "semantics-preserving." An optimization is unsafe if it changes the output or causes a crash that wouldn't have happened (e.g., moving a calculation before its guard check). b) Dataflow Analysis: It maps how values move through the code to ensure that reordering doesn't break dependencies or logic. c) Unsafe Example: Removing "dead code" that actually performs a necessary side effect, like an I/O operation or hardware trigger.
+
+Question 6 – Intermediate Representation Choice a) Why IR: It allows the compiler to support multiple source languages and multiple target CPUs without rewriting the entire system for every combination. b) Three-address code: It is simple and linear, making it easy to perform instruction scheduling and register allocation. c) SSA (Static Single Assignment): Every variable is assigned only once, which significantly simplifies and speeds up dataflow optimizations.
+
+Question 7 – Runtime System & Calling Conventions a) Storage: A stack frame stores return addresses, function parameters, local variables, and saved registers. b) Prologue/Epilogue: The prologue sets up the frame (allocates space); the epilogue cleans it up (restores registers and returns control). c) Registers: Caller-saved registers are backed up by the calling function; Callee-saved registers must be preserved/restored by the function being called.
+
+Question 8 – Virtual Machines & JIT Compilation a) VM Types: Stack-based VMs use a stack for operations (simple, compact); Register-based VMs use virtual registers (faster, closer to real hardware). b) JIT Definition: Just-In-Time compilation converts bytecode into native machine code at runtime. c) Performance: JIT outperforms interpretation because the code runs directly on the CPU as native instructions, skipping the overhead of an interpreter loop.
